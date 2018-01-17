@@ -37,13 +37,13 @@ class ItemSend extends PluginBase implements Listener {
              $this->scope[$player->getName()]['displayMessage']  = null;
          }
       if(@$this->scope[$player->getName()]['additem']  != null){
-          $player->sendMessage($this->scope[$player->getName()]['displayMessage'] );
-             $itemdata = explode(':', $this->scope[$player->getName()]['additem']);
-              $id = $itemdata[0];
-              $damage = $itemdata[1];
-              $count = $itemdata[2]; 
-              $player->getInventory()->addItem(Item::get($id, $damage, $count));
-              unset($this->scope[$player->getName()]);
+            $player->sendMessage($this->scope[$player->getName()]['displayMessage'] );
+            $itemdata = explode(':', $this->scope[$player->getName()]['additem']);
+            $id = $itemdata[0];
+            $damage = $itemdata[1];
+            $count = $itemdata[2]; 
+            $player->getInventory()->addItem(Item::get($id, $damage, $count));
+            unset($this->scope[$player->getName()]);
       }
        
    }
@@ -53,7 +53,7 @@ class ItemSend extends PluginBase implements Listener {
             if($this->scope[$player->getName()]['getchat'] == true){
                 $message = $event->getMessage();
                 if(is_numeric($message)){
-                     $itemdata = explode(':', $this->scope[$player->getName()]['item']); // TODO: Передавать класс
+                    $itemdata = explode(':', $this->scope[$player->getName()]['item']); // TODO: Передавать класс
                     $id = $itemdata[0];
                     $damage = $itemdata[1];
                     $count = $itemdata[2];
@@ -70,40 +70,41 @@ class ItemSend extends PluginBase implements Listener {
                             $player->sendMessage(ItemSend::Prfix.$this->lang("success_sendto").$this->scope[$player->getName()]['sendto']);
                         } else {
                             $player->sendMessage(ItemSend::Prfix.$this->lang("no_online"));
-                             $event->setCancelled(TRUE);
+                            $event->setCancelled(TRUE);
                         }
                     } else {
                         $player->sendMessage(ItemSend::Prfix.$this->lang("no_blocks"));
-                         $event->setCancelled(TRUE);
+                        $event->setCancelled(TRUE);
                     }
                    
                 }else{
                     $player->sendMessage(ItemSend::Prfix.$this->lang("is_numeric"));
-                     $event->setCancelled(TRUE);
+                    $event->setCancelled(TRUE);
                 }
             }
         }   
      public function onPlayerTouch(PlayerInteractEvent $event){
          $player = $event->getPlayer();
-         if(@$this->scope[$player->getName()]['senditem'] == TRUE){
-             if($event->getItem()->getId() != 0){
+        if(@$this->scope[$player->getName()]['senditem'] == TRUE){
+            if($event->getItem()->getId() != 0){
                  
-             $sendto = $this->scope[$player->getName()]['sendto']; 
-             unset($this->scope[$player->getName()]);
-             $this->scope[$player->getName()]['item'] = $event->getItem()->getId().':'.$event->getItem()->getDamage().':'.$event->getItem()->getCount();
-             $this->scope[$player->getName()]['getchat'] = true;
-             $this->scope[$player->getName()]['sendto'] = $sendto;
-             $player->sendMessage(ItemSend::Prfix.$this->lang("item_successfully_received"));
-             $event->setCancelled(TRUE);
-         } else {
-             $player->sendMessage(ItemSend::Prfix.$this->lang("air_transport_forbidden"));
-         }
+            $sendto = $this->scope[$player->getName()]['sendto']; 
+            unset($this->scope[$player->getName()]);
+            $this->scope[$player->getName()]['item'] = $event->getItem()->getId().':'.$event->getItem()->getDamage().':'.$event->getItem()->getCount();
+            $this->scope[$player->getName()]['getchat'] = true;
+            $this->scope[$player->getName()]['sendto'] = $sendto;
+            $player->sendMessage(ItemSend::Prfix.$this->lang("item_successfully_received"));
+            $event->setCancelled(TRUE);
+            } else {
+                $player->sendMessage(ItemSend::Prfix.$this->lang("air_transport_forbidden"));
+            }
          
-             }
+        }
      }
 	
          public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
              if($sender instanceof \pocketmine\command\ConsoleCommandSender){
+                 $sender->sendMessage("Успехов))");
                  return FALSE;
              }
 
@@ -134,26 +135,25 @@ class ItemSend extends PluginBase implements Listener {
                                 break;
                             case 'accept':
                                 if(@$this->scope[$player->getName()]['item'] != NULL){
-                                     $itemdata = explode(':', $this->scope[$player->getName()]['item']);
+                                    $itemdata = explode(':', $this->scope[$player->getName()]['item']);
                                     $id = $itemdata[0];
                                     $damage = $itemdata[1];
                                     $count = $itemdata[2]; 
                                     if($sender->getInventory()->canAddItem(Item::get($id, $damage, $count))){
                                   
-                                   $sender->getInventory()->addItem(Item::get($id, $damage, $count));
-                                   @$this->scope[$player->getName()]['item'] = null;
-                                   $sender->sendMessage(ItemSend::Prfix.$this->lang('success_taken'));
-                                   $this->getServer()->getPlayer($this->scope[$player->getName()]['sendby'])->sendMessage(ItemSend::Prfix.$this->lang("player").": ".$sender->getName()." ".$this->lang('received_request'));
-                                 }else{
-                                    $sender->sendMessage($this->lang('no_inventory'));
-                                 }
-                                   
-                                    } else {
+                                        $sender->getInventory()->addItem(Item::get($id, $damage, $count));
+                                        @$this->scope[$player->getName()]['item'] = null;
+                                        $sender->sendMessage(ItemSend::Prfix.$this->lang('success_taken'));
+                                        $this->getServer()->getPlayer($this->scope[$player->getName()]['sendby'])->sendMessage(ItemSend::Prfix.$this->lang("player").": ".$sender->getName()." ".$this->lang('received_request'));
+                                    }else{
+                                        $sender->sendMessage($this->lang('no_inventory'));
+                                    }
+                                } else {
                                     $sender->sendMessage(ItemSend::Prfix.$this->lang("no_requests"));
                                 }
                                 break;
                                 case 'deny':
-                                     if(@$this->scope[$player->getName()]['item'] != NULL){
+                                    if(@$this->scope[$player->getName()]['item'] != NULL){
                                         $itemdata = explode(':',$this->scope[$player->getName()]['item']);
                                         $id = $itemdata[0];
                                         $damage = $itemdata[1];
@@ -162,18 +162,16 @@ class ItemSend extends PluginBase implements Listener {
                                         $this->getServer()->getPlayer($this->scope[$player->getName()]['sendby'])->getInventory()->addItem(Item::get($id, $damage, $count));
                                         $this->getServer()->getPlayer($this->scope[$player->getName()]['sendby'])->sendMessage(ItemSend::Prfix.$this->lang('player').":".$sender->getName().$this->lang('undo_send'));
                                         $sender->sendMessage(ItemSend::Prfix.$this->lang('success_canceled'));
-
-                                     } else {
-                                   $sender->sendMessage(ItemSend::Prfix.$this->lang("no_requests"));
-                                   
-                                     }
+                                        
+                                    } else {
+                                        $sender->sendMessage(ItemSend::Prfix.$this->lang("no_requests"));
+                                    }
                                 break;
                             case 'setlang':
                                 
                                 break;
                                  default:
-                                
-                                $sender->sendMessage(ItemSend::Prfix.$this->lang('no_sub-command'));
+                                    $sender->sendMessage(ItemSend::Prfix.$this->lang('no_sub-command'));
                                 
                                  break;
                           }
@@ -183,11 +181,10 @@ class ItemSend extends PluginBase implements Listener {
                 public function getOnline($nickname) {
                    if($player = $this->getServer()->getPlayer($nickname)){
                        return TRUE;
-            } else{
-                return false;
-            }
-                   
-         }
+                    } else{
+                        return false;
+                    }
+                }
          public function languageInitialization(){
              switch ($this->getConfig()->get("lang")) {
                  case 'rus':
@@ -225,19 +222,19 @@ class ItemSend extends PluginBase implements Listener {
              }
          }
 
-         public function lang($phrase){
-        $file = json_decode(file_get_contents($this->getDataFolder()."lang.json"), TRUE);
-        return $file["{$phrase}"];
-		}
+            public function lang($phrase){
+                $file = json_decode(file_get_contents($this->getDataFolder()."lang.json"), TRUE);
+                return $file["{$phrase}"];
+            }
           public function curl_get_contents($url){
-  $curl = curl_init($url);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-  curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-  $data = curl_exec($curl);
-  curl_close($curl);
-  return $data;
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+            $data = curl_exec($curl);
+            curl_close($curl);
+            return $data;
           }
 }
 
