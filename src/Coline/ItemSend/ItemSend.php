@@ -153,7 +153,6 @@ class ItemSend extends PluginBase implements Listener {
                                 break;
                                 case 'deny':
                                      if(@$this->scope[$player->getName()]['item'] != NULL){
-                                         echo json_encode($this->scope[$player->getName()]);
                                         $itemdata = explode(':',$this->scope[$player->getName()]['item']);
                                         $id = $itemdata[0];
                                         $damage = $itemdata[1];
