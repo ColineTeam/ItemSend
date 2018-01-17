@@ -113,7 +113,7 @@ class ItemSend extends PluginBase implements Listener {
                             break; 
                         }
                         $player = $sender;
-                          switch ($args[0]) {
+                          switch (@$args[0]) {
                             case 'send':
                                 if($args[1] != NULL){
                                     if($this->getOnline($args[1])){
@@ -121,7 +121,7 @@ class ItemSend extends PluginBase implements Listener {
                                             $sender->sendMessage(ItemSend::Prfix.$this->lang('no_creative'));
                                         } else {
                                             $this->scope[$player->getName()]['senditem'] = TRUE;
-                                            $this->scope[$player->getName()]['sendto']  = strtolower($args[1]);
+                                            $this->scope[$player->getName()]['sendto']  = $this->getServer()->getPlayer($args[1])->getName();
                                         $sender->sendMessage(ItemSend::Prfix.$this->lang("send_successfully"));
                                         }
                                     } else {
@@ -142,7 +142,7 @@ class ItemSend extends PluginBase implements Listener {
                                    $sender->getInventory()->addItem(Item::get($id, $damage, $count));
                                    @$this->scope[$player->getName()]['item'] = null;
                                    $sender->sendMessage(ItemSend::Prfix.$this->lang('success_taken'));
-                                   $this->getServer()->getPlayer($this->scope[$player->getName()]['sendby'])->sendMessage(ItemSend::Prfix.$this->lang("player").":".$sender->getName().$this->lang('received_request'));
+                                   $this->getServer()->getPlayer($this->scope[$player->getName()]['sendby'])->sendMessage(ItemSend::Prfix.$this->lang("player").": ".$sender->getName()." ".$this->lang('received_request'));
                                  }else{
                                     $sender->sendMessage($this->lang('no_inventory'));
                                  }
@@ -153,6 +153,7 @@ class ItemSend extends PluginBase implements Listener {
                                 break;
                                 case 'deny':
                                      if(@$this->scope[$player->getName()]['item'] != NULL){
+                                         echo json_encode($this->scope[$player->getName()]);
                                         $itemdata = explode(':',$this->scope[$player->getName()]['item']);
                                         $id = $itemdata[0];
                                         $damage = $itemdata[1];
