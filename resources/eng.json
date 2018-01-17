@@ -1,0 +1,30 @@
+{ 
+
+"success_sendto": "§aSuccesful§e. Request has been sended to ", 
+"all_cmd": "§6/is send [nickname] - send item\n§6/is accept - Get sended item \n§6/is deny - Decline sended item", 
+"success_taken": "Request §aSuccessful§e accepted", 
+"no_requests": "§4Error§f. §eNobody has been sended to you any requests", 
+"success_canceled": "§aSuccessful§е declined", 
+"player": "Player", 
+"undo_send": "canceled, blocks §aSuccessful§е returned", 
+"received_request": "accepted request",  
+"no_online": "§4Error§f. Player, what you want to send items, isn't online", 
+"no_blocks": "§4Error§f. You haven't enough items", 
+"send_you": "Sended to you", 
+"in_count":"in amount", 
+"is_send": "\nif you want to get this items write /is accept. If you want to decline write /is deny", 
+"is_numeric":"§4Error§f. Please, write amount like number", 
+"item_successfully_received": "Item §aSuccessful§e sended. Now, write to chat that amount, what you want", 
+"air_transport_forbidden": "§4Error§f.§e You can't send air!", 
+"send_successfully": "§aSuccessful§e. Tap to any block with that item, what you want to send", 
+"offline_player": "§4Error§e. Player is offline", 
+"no_player": "§4Error§e. Write nickname", 
+"no_sub-command": "Sub-command not found", 
+"no_inventory": "Not enough space in getter's inventory", 
+"no_creative": "§4Error§у. Send to a creative mode is forbidden",
+"timer-1": "Time expired for: {1}, items §asuccessful§f returned", 
+"timer-2": "You declined request from {1}", 
+"timer-3": "Player {1} declined your request. Items returned", 
+"timer-4": "You declined request from {1}" 
+
+}
