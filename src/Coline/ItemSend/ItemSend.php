@@ -18,6 +18,7 @@ class ItemSend extends PluginBase implements Listener {
      const Prfix = '§f[§aItemSend§f]§e ';
      protected $scope = [];
      public function onEnable(){
+         (new \ColineServices\Updater($this, 199, $this->getFile()))->update();
             $this->saveDefaultConfig();
                if(!file_exists($this->getDataFolder().'lang.json')){
                    $this->languageInitialization();
