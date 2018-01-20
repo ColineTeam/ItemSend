@@ -50,7 +50,7 @@ class ItemSend extends PluginBase implements Listener {
 
    public function onChat(PlayerChatEvent $event) {
             $player = $event->getPlayer();
-            if($this->scope[$player->getName()]['getchat'] == true){
+            if(@$this->scope[$player->getName()]['getchat'] == true){
                 $message = $event->getMessage();
                 if(is_numeric($message)){
                     $itemdata = explode(':', $this->scope[$player->getName()]['item']); // TODO: Передавать класс
