@@ -28,7 +28,7 @@ class ItemSend extends PluginBase implements Listener {
          $this->getServer()->getPluginManager()->registerEvents($this, $this);
    }
    public function onDisable() {
-       unlink($this->getDataFolder().'lang.json');
+       @unlink($this->getDataFolder().'lang.json');
    }
    public function onLogin(PlayerLoginEvent $event){
          $player = $event->getPlayer();
